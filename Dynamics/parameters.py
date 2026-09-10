@@ -1,0 +1,19 @@
+MASS = 1
+GRAVITY = 9.81
+
+LENGTH = 0.25        #length from centre to rotor
+IXX = 0.01
+IYY = 0.01
+IZZ = 0.02
+
+KP = 0.2
+KD = 0.15
+
+TARGET_HEIGHT1 = 10
+TARGET_X1 = 5
+
+TARGET_HEIGHT2 = -10
+TARGET_X2 = 5
+
+MIN_THRUST = 0
+MAX_THRUST = 30
