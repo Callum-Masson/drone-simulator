@@ -6,34 +6,60 @@ from Control.pid import thrust
 m = parameters.MASS
 g = parameters.GRAVITY
 L = parameters.LENGTH
-I = parameters.IYY
+Ix = parameters.IXX
+Iy = parameters.IYY
+Iz = parameters.IZZ
+k = parameters.K
+
+
 
 
 
 
 def dynamics(t, state):
     
-    if t < 5:
+    if t < 20/3:
         x_target = parameters.TARGET_X1
+        y_target = parameters.TARGET_Y1
         z_target = parameters.TARGET_HEIGHT1
 
-    else:
+    elif t < 40/3:
         x_target = parameters.TARGET_X2
+        y_target = parameters.TARGET_Y2
         z_target = parameters.TARGET_HEIGHT2
+
+    else:
+        x_target = parameters.TARGET_X3
+        y_target = parameters.TARGET_Y3
+        z_target = parameters.TARGET_HEIGHT3
 
         
 
 
-    t1,t2 = thrust(state, x_target, z_target)
-    dzdt = state[1]
-    dwdt = ((t1 + t2)*np.cos(state[4]) - m*g)/m
+    t1, t2, t3, t4 = thrust(state, x_target, y_target, z_target)
+    tt = t1 + t2 + t3 + t4
 
-    dxdt = state[3]
-    dudt = -(t1 + t2)*np.sin(state[4])/m
+    ddt = np.zeros(12)
 
-    dthetadt = state[5]
-    dthetadotdt = (t2*L-t1*L)/I
+    ddt[0] = state[3]       #dxdt
+    ddt[1] = state[4]       #dydt
+    ddt[2] = state[5]       #dzdt
+
+    ddt[3] = (np.sin(state[7])*np.cos(state[6])*np.cos(state[8]) + np.sin(state[8]) * np.sin(state[6]))*tt/m      #dvxdt
+    ddt[4] = (np.sin(state[7])*np.cos(state[6])*np.sin(state[8]) + np.cos(state[8]) * np.sin(state[6]))*tt/m      #dvydt
+    ddt[5] = np.cos(state[6])*np.cos(state[7]) * tt/m - g       #dwdt
+
+    ddt[6] = state[9] + (state[10]*np.sin(state[6]) + state[11]*np.cos(state[6]))*np.tan(state[7])      #phi dot
+    ddt[7] = state[10] * np.cos(state[6]) - state[11] * np.sin(state[6])        #theta dot
+    ddt[8] = (state[10] * np.sin(state[6]) + state[11] * np.cos(state[6]))/np.cos(state[7])     #psi dot
+
+    taux = L * np.sin(np.pi/4) * (t1+t3 - (t2+t4))
+    tauy = L * np.sin(np.pi/4) * (t3+t4 - (t1+t2))
+    tauz = k * (t1 + t4 - t2 - t3)
+
+    ddt[9] = (Iy - Iz)/Ix * state[10] * state[11] + taux/Ix     #p dot
+    ddt[10] = (Iz - Ix)/Iy * state[9] * state[11] + tauy/Iy     #q dot
+    ddt[11] = (Ix - Iy)/Iz * state[9] * state[10] + tauz/Iz     #r dot
 
 
-
-    return [dzdt, dwdt, dxdt, dudt, dthetadt, dthetadotdt]
+    return ddt

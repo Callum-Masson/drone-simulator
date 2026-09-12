@@ -1,19 +1,27 @@
 MASS = 1
 GRAVITY = 9.81
 
-LENGTH = 0.25        #length from centre to rotor
+LENGTH = 0.25        #arm length
 IXX = 0.01
 IYY = 0.01
 IZZ = 0.02
 
+K = 0.02        #ratio of rotor torque to thrust
+
 KP = 0.2
 KD = 0.15
 
-TARGET_HEIGHT1 = 10
-TARGET_X1 = 5
+TARGET_HEIGHT1 = 0
+TARGET_Y1 = -3
+TARGET_X1 = -3
 
-TARGET_HEIGHT2 = -10
-TARGET_X2 = 5
+TARGET_HEIGHT2 = -3
+TARGET_Y2 = -2
+TARGET_X2 = -2
+
+TARGET_HEIGHT3 = 0
+TARGET_Y3 = 0
+TARGET_X3 = 0
 
 MIN_THRUST = 0
-MAX_THRUST = 30
+MAX_THRUST = 15
