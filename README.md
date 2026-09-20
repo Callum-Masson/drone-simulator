@@ -25,7 +25,8 @@ A Kp variable and Kd variable was made for each the horizontal errors, vertical 
 - Max rotor thrust per rotor: 15N
 
 ## Results
-Drone reaches most destinations succesfully. Drone sometimes doesn't take the fastest path and can sometimes take a long time to settle within the area of the mark. Sometimes has large overshoot. Demos can be seen in the visualisations folder.
+![demo1](./Visualisation/3D%20Demos/demo_1.gif)
+Drone reaches most destinations succesfully. Drone sometimes doesn't take the fastest path and can sometimes take a long time to settle within the area of the mark. Sometimes has large overshoot. More demos can be seen in the visualisations folder.
 
 ## Next Steps
 - Introducing some noise variables, e.g. wind
