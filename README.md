@@ -26,6 +26,7 @@ A Kp variable and Kd variable was made for each the horizontal errors, vertical 
 
 ## Results
 ![demo1](./Visualisation/3D%20Demos/demo_1.gif)
+
 Drone reaches most destinations succesfully. Drone sometimes doesn't take the fastest path and can sometimes take a long time to settle within the area of the mark. Sometimes has large overshoot. More demos can be seen in the visualisations folder.
 
 ## Next Steps
